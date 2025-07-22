@@ -1,13 +1,29 @@
 import pyttsx3, os, tkinter, spacy,plyer
 import speech_recognition as sr
-from ttkbootstrap import *
-from tkinter import *
+# from ttkbootstrap import *
+# from ttkbootstrap.widgets import *
+# from ttkbootstrap.constants import *
+# from tkinter import *
 import datetime
 import random
 import pywhatkit
 import time
 import webbrowser
+# import tkinter as tk
+import time
+import os
 import wikipedia
+
+splash_text = """
+############################################
+#                                          #
+#         MADE BY ASHU AND MANYA           #
+#                                          #
+#         WELCOME TO PROJECT ARIA          #
+#                                          #
+############################################
+"""
+
 
 r = sr.Recognizer()
 def Ytopen_Search(order):
@@ -80,7 +96,7 @@ def aria_speak_listen(): #main working function
             speak_aria("Sorry, I didn't catch that.")
 
 
-# greet()
+greet()
 # aria_speak_listen()
 
 
@@ -91,3 +107,35 @@ def aria_speak_listen(): #main working function
 #   ####        #        #               #  
 #      #        #        #               #
 ########        ##########          ############    
+
+# def Aria_window():
+#     win = Window(themename="darkly")
+
+
+#     win.title("Aria")
+#     win.geometry('280x280')
+#     win.attributes('-topmost',True)
+# # win.wm_maxsize = False
+#     win.resizable(False,False)
+#     aria_trigger_button = Button(win, text="🎤 Aria", bootstyle="success.TButton",command=aria_speak_listen())
+#     aria_trigger_button.pack(pady=40)
+
+#     aria_info_button = Button(win, text="Info",bootstyle = "info-outline").pack()
+
+
+#     win.mainloop()
+
+
+
+
+
+# ############################################
+# #                                          #
+# #         MADE BY ASHU AND MANYA           #
+# #                                          #
+# #         WELCOME TO PROJECT ARIA          #
+# #                                          #
+# ############################################
+# Splash text as multiline string
+
+# Aria_window()
