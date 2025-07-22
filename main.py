@@ -1,11 +1,21 @@
-import pyttsx3, os, tkinter, spacy
+import pyttsx3, os, tkinter, spacy,plyer
 import speech_recognition as sr
 from ttkbootstrap import *
 from tkinter import *
 import datetime
 import random
+import pywhatkit
+import time
+import webbrowser
+import wikipedia
 
 r = sr.Recognizer()
+def Ytopen_Search(order):
+    pywhatkit.playonyt(order)
+
+def Wikipedia_search(order_wiki,sentencenumber):
+    wikipedia.search(order_wiki,sentencenumber)
+
 
 def ariavoice(): #voice function
     engine = pyttsx3.init()
@@ -39,6 +49,7 @@ def greet(): #greeting funtion
     engine.say(chosen)
     engine.runAndWait()
 
+
 def speak_aria(text): #Speak the text function
     try:
         engine = ariavoice()
@@ -56,11 +67,27 @@ def aria_speak_listen(): #main working function
         try:
             query = r.recognize_google(audio)
             print(f"User said: {query}")
-            speak_aria(f"You said: {query}")
+            query = query.lower()
+
+
+            if ("open" in query and "youtube" in query) or ("search" in query and "youtube" in query):
+                search_term = query.replace("search", "").replace("on youtube", "").strip()
+                url = f"https://www.youtube.com/results?search_query={search_term.replace(' ', '+')}"
+                webbrowser.open(url)
         except:
+            
             print("Please try again")
             speak_aria("Sorry, I didn't catch that.")
 
 
-greet()
-aria_speak_listen()
+# greet()
+# aria_speak_listen()
+
+
+
+##########      #        #          ###########   
+#               #        #               #   
+#               #        #               #   
+#   ####        #        #               #  
+#      #        #        #               #
+########        ##########          ############    
