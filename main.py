@@ -80,60 +80,89 @@ def speak_aria(text): #Speak the text function
     except Exception as e:
         print(f"[ERROR] TTS Failed: {e}")
 
-def aria_speak_listen(): #main working function
-    with sr.Microphone() as source:
-        r.adjust_for_ambient_noise(source, duration=1)
-        print("Listening...")
-        audio = r.listen(source)
+def aria_speak_listen():#main working function
+    while True:
 
-        try:
-            query = r.recognize_google(audio)
-            print(f"User said: {query}")
-            query = query.lower()
+        with sr.Microphone() as source:
+            r.adjust_for_ambient_noise(source, duration=1)
+            print("Listening...")
+            audio = r.listen(source)
+
+            try:
+                query = r.recognize_google(audio)
+                print(f"User said: {query}")
+                query = query.lower()
+
+                if any(phrase in query for phrase in [
+                    "aria shutdown", "exit program", "go to sleep", 
+                    "terminate the core", "power off yourself", "bye aria", "fuck off"]):
+                    
+                    shutdown_lines = [
+                        "Acknowledged. Powering down systems.",
+                        "Command received. Going offline.",
+                        "Shutting down. As per your command.",
+                        "Logging out. No further activity expected.",
+                        "System disengaged. Awaiting further orders.",
+                        "Understood. Session terminated.",
+                        "All operations suspended. Goodbye.",
+                        "Offline protocols initiated. See you on the next directive.",
+                        "Exiting all active states. Signing off.",
+                        "Mission aborted. Going silent."
+                    ]
+                    
+                    speak_aria(random.choice(shutdown_lines))
+                    break
+
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+                elif ("search" in query and "youtube" in query) or ("search" in query and "youtube" in query):
+                    search_term = query.replace("search", "").replace("on youtube", "").strip()
+                    url = f"https://www.youtube.com/results?search_query={search_term.replace(' ', '+')}"
+                    webbrowser.open(url)
+                elif ("introduce" in query and "yourself" in query):
+                    print(splash_text)
+                    speak_aria(Introduction)
+
+                elif "open" in query and "youtube" in query:
+                    speak_aria("Openning Youtube")
+                    Ytopen_Search()
+                elif "what's the date" in query or "what is the date" in query or "today's date" in query or "tell me the date" in query or "date today" in query or "can you tell the date" in query or "which date is it" in query or "current date" in query:
+                    from datetime import datetime
+                    date_today = datetime.now().strftime("%A, %d %B %Y")
+                    speak_aria(f"Today is {date_today}")
+                elif "what's the time" in query or "what is the time" in query or "today's time" in query or "tell me the time" in query or "time today" in query or "can you tell the time" in query or "which time is it" in query or "current time" in query:
+                    from datetime import datetime
+                    time_today = datetime.now().strftime("%I:%M %p")
+                    speak_aria(f"It's {time_today}")
+                
 
 
-            if ("search" in query and "youtube" in query) or ("search" in query and "youtube" in query):
-                search_term = query.replace("search", "").replace("on youtube", "").strip()
-                url = f"https://www.youtube.com/results?search_query={search_term.replace(' ', '+')}"
-                webbrowser.open(url)
-            elif ("introduce" in query and "yourself" in query):
-                print(splash_text)
-                speak_aria(Introduction)
-
-            elif "open" in query and "youtube" in query:
-                Ytopen_Search()
-            elif "what's the date" in query or "what is the date" in query or "today's date" in query or "tell me the date" in query or "date today" in query or "can you tell the date" in query or "which date is it" in query or "current date" in query:
-                from datetime import datetime
-                date_today = datetime.now().strftime("%A, %d %B %Y")
-                speak_aria(f"Today is {date_today}")
-            elif "what's the time" in query or "what is the time" in query or "today's time" in query or "tell me the time" in query or "time today" in query or "can you tell the time" in query or "which time is it" in query or "current time" in query:
-                from datetime import datetime
-                time_today = datetime.now().strftime("%I:%M %p")
-                speak_aria(f"It's {time_today}")
-            
 
 
+                elif "are you from hogwarts" in query or "do you know hogwarts" in query or "are you a wizard" in query or "potter" in query or "lumos" in query :
+                    responses = [
+                        "I'm not from Hogwarts, but I did take a few online classes from Dumbledore.",
+                        "I solemnly swear that I am up to no good.",
+                        "10 points to Gryffindor for asking!",
+                    ]
+                    speak_aria(random.choice(responses))
 
 
-            elif "are you from hogwarts" in query or "do you know hogwarts" in query or "are you a wizard" in query or "potter" in query or "lumos" in query :
-                responses = [
-        "I'm not from Hogwarts, but I did take a few online classes from Dumbledore.",
-        "I solemnly swear that I am up to no good.",
-        "10 points to Gryffindor for asking!",
-        "I may not have a wand, but I can do magic with code.",
-        "If I had a house, it would be Ravenclaw. Logic all the way.",
-                                                                        ]
-            speak_aria(random.choice(responses))
+            except sr.UnknownValueError:
+                print("Please try again")
+                speak_aria("Sorry, I didn't catch that.")
+            except sr.RequestError:
+                print("Speech service error.")
+                speak_aria("There was an issue with the speech service.")
 
-        except:
-            
-            print("Please try again")
-            speak_aria("Sorry, I didn't catch that.")
 
 
 greet()
 aria_speak_listen()
 
+     
 
 
 ##########      #        #          ###########   
@@ -142,4 +171,7 @@ aria_speak_listen()
 #   ####        #        #               #  
 #      #        #        #               #
 ########        ##########          ############    
+
+
+
 
