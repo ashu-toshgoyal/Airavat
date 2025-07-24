@@ -23,7 +23,16 @@ splash_text = """
 #                                          #
 ############################################
 """
-Introduction = '''Hello, I’m Aria — a smart virtual assistant developed with care by Ashu and Manya. I’m designed to make your digital life easier, faster, and a bit more fun. From answering your questions and searching the internet, to opening apps, reading things out loud, or reminding you about your day — I can do a lot. I’m still learning and evolving, but I’m always ready to assist you with whatever you need. Just say the word, and I’ll be there.'''
+introductions = [
+    '''Greetings. I’m Aria, your personal digital assistant crafted by Ashu and Manya. I’m here to simplify your tasks, streamline your workflow, and bring a bit of intelligence into your daily routine. Whether it's searching the web, reminding you of your schedule, or simply answering a question, I'm always just a word away. Let’s make every command count.''',
+
+    '''Hey there! I’m Aria — built by Ashu and Manya with a healthy dose of code and caffeine. I handle the boring stuff so you don’t have to. Need to open something, search the net, or just curious about something weird? I'm listening. I might not have a face, but I’ve got your back.''',
+
+    '''System boot complete. I am Aria, your virtual assistant engineered by Ashu and Manya. I am equipped to execute commands, deliver information, and manage your digital environment with precision. Standby mode disengaged. You may begin.''',
+
+    '''Welcome. I’m Aria — a voice from the future, created by Ashu and Manya to bring intelligence to your fingertips. I can search, respond, launch, remind, read, and more. You control the world — I just help you talk to it. Let the interface begin.'''
+]
+
 
 r = sr.Recognizer()
 def Ytopen_Search():
@@ -59,7 +68,7 @@ def greet(): #greeting funtion
     ]
 
 
-    chosen = random.choice(greetings)
+    chosen = random.choice(greetings) 
 
     if 5 <= hours < 12:
         engine.say("Good morning sir.")
@@ -94,7 +103,7 @@ def aria_speak_listen():#main working function
                 query = query.lower()
 
                 if any(phrase in query for phrase in [
-                    "aria shutdown", "exit program", "go to sleep", 
+                    "shutdown", "exit program", "go to sleep", 
                     "terminate the core", "power off yourself", "bye aria", "fuck off"]):
                     
                     shutdown_lines = [
@@ -123,7 +132,7 @@ def aria_speak_listen():#main working function
                     webbrowser.open(url)
                 elif ("introduce" in query and "yourself" in query):
                     print(splash_text)
-                    speak_aria(Introduction)
+                    speak_aria(random.choice(introductions))
 
                 elif "open" in query and "youtube" in query:
                     speak_aria("Openning Youtube")
