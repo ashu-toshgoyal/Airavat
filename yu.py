@@ -1,7 +1,15 @@
-import spacy
+import json
 
-nlp = spacy.load("en_core_web_sm")
-doc = nlp("Hey Aria, can you please set a reminder for my meeting with John at 3 PM tomorrow?")
+dictionary = {
+    "name": "sathiyajith",
+    "rollno": 23,
+    "cgpa": 8.6,
+    "phonenumber": "9976770500"
+}
 
-for ent in doc.ents:
-    print(ent.text, ent.label_)  # John (PERSON), 3 PM (TIME), tomorrow (DATE)
+# Serializing json
+json_object = json.dumps(dictionary, indent=4)
+
+# Writing to sample.json
+with open("data.json", "w") as outfile:
+    outfile.write(json_object)
