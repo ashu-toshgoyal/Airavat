@@ -11,6 +11,7 @@ import time
 import webbrowser
 # import tkinter as tk
 import time
+from resemblyzer import VoiceEncoder, preprocess_wav
 import os
 import wikipedia
 
